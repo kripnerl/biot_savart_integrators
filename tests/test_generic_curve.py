@@ -1,4 +1,5 @@
 from biot_savart_integrators.generic import curve as generic_curve
+from biot_savart_integrators.generic import line_elements
 
 import numpy as np
 import xarray as xr
@@ -11,7 +12,8 @@ import pytest
 def setup():
     I = 1.15766
     a = 6.789  # circle radius
-     # high phi resolution to fulfill tolerance
+    # high phi resolution to fulfill tolerance
+
     phi = xr.DataArray(np.linspace(-np.pi, np.pi, int(1e6)), dims=['phi'], name='phi')
     r0 = xr.DataArray([-5.7, 8.9, 2.1], coords=[('s', list('xyz'))], name='r0')
     r_c = xr.concat([a*np.cos(phi), a*np.sin(phi), xr.zeros_like(phi)], r0.s) + r0
@@ -21,12 +23,29 @@ def setup():
 def test_circle_winding(setup):
     """Compare numerical integration with analytical result"""
     I, a, r0, r_c = setup
+
     Bz_analytic = mu_0*I/(2*a)
-   
     B_calc = generic_curve.biot_savart_integral(r0, r_c, integration_dim='phi',
                                        spatial_dim='s', I=I)
+
     np.testing.assert_allclose(B_calc.sel(s=['x', 'y']), [0,0])
     np.testing.assert_allclose(B_calc.sel(s='z'), Bz_analytic)
+
+
+def test_circular_winding_line_element(setup):
+    I, a, r0, r_c = setup
+    dl = r_c.differentiate("phi")  # vector
+    j = dl * I  # vector with length element
+    dl = (dl ** 2).sum("s") ** 0.5  # actual lengths
+    j = j / dl  # normalization to line element length.
+
+    Bz_analytic = mu_0 * I / (2 * a)
+    B_line_el = line_elements.biot_savart_integral(r0, r_c, dl, j,
+                                                   integration_dim="phi",
+                                                   spatial_dim="s")
+
+    np.testing.assert_allclose(B_line_el.sel(s=['x', 'y']), [0, 0])
+    np.testing.assert_allclose(B_line_el.sel(s='z'), Bz_analytic)
 
 
 def test_circle_winding_profile(setup):
