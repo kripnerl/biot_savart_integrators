@@ -13,20 +13,21 @@ def biot_savart_integral(r: xr.DataArray, r_c: xr.DataArray,
                          integration_dim: str, spatial_dim: str) -> xr.DataArray:
     """Numerical integration of B-S law for set of line elements.
 
-    :param r: Positions where the magnetic field is evaluated.
-    :type r: xr.DataArray
-    :param r_c: Centers of line current elements.
-    :type r_c: xr.DataArray
-    :param dl: Lengt of the current element (scalar).
-    :type dl: xr.DataArray
-    :param j: Spatial current flowing through the element in Amps.
-    :type j: xr.DataArray
-    :param integration_dim: Dimension name over which index current
+    Parameters
+    ----------
+    r - Positions where the magnetic field is evaluated.
+    r_c - Centers of line current elements.
+    dl - Length of the current element (scalar).
+    j - Spatial current flowing through the element in Amps.
+    integration_dim - Dimension name over which index current
                             elements.
-    :type integration_dim: str
-    :param spatial_dim: Name of the spetial dimension.
-    :type spatial_dim: str
+    spatial_dim - Name of the spatial dimension.
+
+    Returns
+    -------
+    Magnetic field vector at  `r`.
     """
+
     j_int = j * dl
     integrand = bsintegrand(r, r_c, j_int, spatial_dim)
 
@@ -43,19 +44,19 @@ def biot_savart_potential_integral(r: xr.DataArray, r_c: xr.DataArray,
                          integration_dim: str, spatial_dim: str) -> xr.DataArray:
     """Numerical integration of B-S law for vector potential for set of line elements.
 
-    :param r: Positions where the magnetic field is evaluated.
-    :type r: xr.DataArray
-    :param r_c: Centers of line current elements.
-    :type r_c: xr.DataArray
-    :param dl: Lengt of the current element (scalar).
-    :type dl: xr.DataArray
-    :param j: Spatial current flowing through the element in Amps.
-    :type j: xr.DataArray
-    :param integration_dim: Dimension name over which index current
+    Parameters
+    ----------
+    r - Positions where the magnetic field is evaluated.
+    r_c - Centers of line current elements.
+    dl - Length of the current element (scalar).
+    j - Spatial current flowing through the element in Amps.
+    integration_dim - Dimension name over which index current
                             elements.
-    :type integration_dim: str
-    :param spatial_dim: Name of the spetial dimension.
-    :type spatial_dim: str
+    spatial_dim - Name of the spatial dimension.
+
+    Returns
+    -------
+    Vector potential at  `r`.
     """
     j_int = j * dl
     integrand = bs_pot_integrands(r, r_c, j_int, spatial_dim)
