@@ -11,7 +11,7 @@ from .integrand import biot_savart_potential_integrand as bs_pot_integrands
 def biot_savart_integral(r: xr.DataArray, r_c: xr.DataArray,
                          dl: xr.DataArray, j: xr.DataArray,
                          integration_dim: str, spatial_dim: str) -> xr.DataArray:
-    """Numerical integration of B-S law for the set of line elements.
+    """Numerical integration of B-S law for set of line elements.
 
     :param r: Positions where the magnetic field is evaluated.
     :type r: xr.DataArray
@@ -41,7 +41,7 @@ def biot_savart_integral(r: xr.DataArray, r_c: xr.DataArray,
 def biot_savart_potential_integral(r: xr.DataArray, r_c: xr.DataArray,
                          dl: xr.DataArray, j: xr.DataArray,
                          integration_dim: str, spatial_dim: str) -> xr.DataArray:
-    """Numerical integration of B-S law for vector potential for the set of line elements.
+    """Numerical integration of B-S law for vector potential for set of line elements.
 
     :param r: Positions where the magnetic field is evaluated.
     :type r: xr.DataArray
