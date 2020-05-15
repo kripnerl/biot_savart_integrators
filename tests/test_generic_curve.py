@@ -40,9 +40,7 @@ def test_circular_winding_line_element(setup):
     j = j / dl  # normalization to line element length.
 
     Bz_analytic = mu_0 * I / (2 * a)
-    B_line_el = line_elements.biot_savart_integral(r0, r_c, dl, j,
-                                                   integration_dim="phi",
-                                                   spatial_dim="s")
+    B_line_el = line_elements.biot_savart_integral_B(r0, integration_dim="phi", spatial_dim="s", r_c=r_c, dl=dl, j=j)
 
     np.testing.assert_allclose(B_line_el.sel(s=['x', 'y']), [0, 0])
     np.testing.assert_allclose(B_line_el.sel(s='z'), Bz_analytic)

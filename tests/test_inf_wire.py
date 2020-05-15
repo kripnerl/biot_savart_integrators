@@ -30,9 +30,7 @@ def test_inf_wire_line_el(setup):
 
     Btheta_analytic = mu_0 * I / (2 * np.pi * a)
 
-    B_line_el = line_elements.biot_savart_integral(r0, r_c, dl, j,
-                                                   integration_dim="z",
-                                                   spatial_dim="s")
+    B_line_el = line_elements.biot_savart_integral_B(r0, integration_dim="z", spatial_dim="s", r_c=r_c, dl=dl, j=j)
 
     np.testing.assert_allclose(B_line_el.sel(s=['x', 'z']), [0, 0])
     np.testing.assert_allclose(B_line_el.sel(s='y'), Btheta_analytic)
@@ -51,9 +49,9 @@ def test_inf_wire_line_el_vector_potential(setup):
 
     Az_analytical = (np.log(2 * l) - np.log(a)) * mu_0 * I / (2 * np.pi)
 
-    A_calc = line_elements.biot_savart_potential_integral(r0, r_c, dl, j,
-                                                          integration_dim="z",
-                                                          spatial_dim="s")
+    A_calc = line_elements.biot_savart_integral_A(r0, r_c=r_c, dl=dl, j=j,
+                                                  integration_dim="z",
+                                                  spatial_dim="s")
 
     np.testing.assert_allclose(A_calc.sel(s=['x', 'y']), [0, 0])
     np.testing.assert_allclose(A_calc.sel(s='z'), Az_analytical)
