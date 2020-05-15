@@ -31,7 +31,7 @@ def _prepare_input_(integration_dim: Hashable, spatial_dim: Hashable,
     return r_c_copy, j_int
 
 
-def biot_savart_integral_B(r: xr.DataArray, integration_dim: Hashable, spatial_dim: Hashable, r_c: xr.DataArray,
+def biot_savart_integral_B(r: xr.DataArray, integration_dim: Hashable, spatial_dim: Hashable, r_c: xr.DataArray,  # noqa
                            dl: xr.DataArray = None, j: Union[xr.DataArray, int, float] = 1) -> xr.DataArray:
     """Numerical integration of B-S law for set of line elements.
 
@@ -67,7 +67,7 @@ def biot_savart_integral_B(r: xr.DataArray, integration_dim: Hashable, spatial_d
     return integral
 
 
-def biot_savart_integral_A(r: xr.DataArray, integration_dim: Hashable, spatial_dim: Hashable, r_c: xr.DataArray,
+def biot_savart_integral_A(r: xr.DataArray, integration_dim: Hashable, spatial_dim: Hashable, r_c: xr.DataArray,  # noqa
                            dl: xr.DataArray = None, j: Union[xr.DataArray, int, float] = 1) -> xr.DataArray:
     """Numerical integration of B-S law for vector potential for set of line elements.
 
