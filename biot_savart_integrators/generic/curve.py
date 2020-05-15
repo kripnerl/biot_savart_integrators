@@ -3,7 +3,7 @@
 The routines expect (dask-chunked) xarray inputs in order to facilitate 
 memory-efficient and parallelized computation.
 """
-from .integrand import biot_savart_integrand as bsintegrand
+from .integrand import biot_savart_integrand_B as bsintegrand
 
 
 def biot_savart_integral(r, r_c, integration_dim, spatial_dim, I=1):
