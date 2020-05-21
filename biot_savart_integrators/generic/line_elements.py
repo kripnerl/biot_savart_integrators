@@ -37,14 +37,14 @@ def biot_savart_integral_B(r: xr.DataArray, integration_dim: Hashable, spatial_d
 
     Parameters
     ----------
-    r: Positions where the magnetic field is evaluated.
-    r_c: Centers of line current elements.
-    dl: Length of the current element.
+    r : Positions where the magnetic field is evaluated.
+    r_c : Centers of line current elements.
+    dl : Length of the current element.
         If None: length elements are calculated from difference of `r_c`
         along `integration_dim`.
         If `dl` is with `spatial_dim` it may be used in determination
         of the current direction.
-    j: Spatial current flowing through the element in Amps.
+    j : Spatial current flowing through the element in Amps.
        If `j` is without `integration` dim it is assumed to be current
        flowing through the single wire.
        If `j` is without `spatial_dim` it is assumed to be scalar
@@ -73,21 +73,21 @@ def biot_savart_integral_A(r: xr.DataArray, integration_dim: Hashable, spatial_d
 
     Parameters
     ----------
-    r: Positions where the vector potential is evaluated.
-    r_c: Centers of line current elements.
-    dl: Length of the current element.
+    r : Positions where the vector potential is evaluated.
+    r_c : Centers of line current elements.
+    dl : Length of the current element.
         If None: length elements are calculated from difference of `r_c`
         along `integration_dim`.
         If `dl` is with `spatial_dim` it may be used in determination
         of the current direction.
-    j: Spatial current flowing through the element in Amps.
+    j : Spatial current flowing through the element in Amps.
        If `j` is without `integration` dim it is assumed to be current
        flowing through the single wire.
        If `j` is without `spatial_dim` it is assumed to be scalar
        and the current direction is calculated from `r_c`.
-    integration_dim: Dimension name over which index current
+    integration_dim : Dimension name over which index current
                      elements.
-    spatial_dim: Name of the spatial dimension.
+    spatial_dim : Name of the spatial dimension.
     Returns
     -------
     Vector potential at  `r`.

@@ -19,9 +19,9 @@ def biot_savart_integrand_B(r: xr.DataArray, r_j: xr.DataArray, # noqa
 
     Parameters
     ----------
-    r: Positions where the magnetic field is evaluated.
-    r_j: Position of the current element.
-    j: Current density vector (in A/m2).
+    r : Positions where the magnetic field is evaluated.
+    r_j : Position of the current element.
+    j : Current density vector (in A/m2).
     spatial_dim: Name of the spatial dimension.
 
     Returns
@@ -48,10 +48,10 @@ def biot_savart_integrand_A(r: xr.DataArray, r_j: xr.DataArray,  # noqa
 
     Parameters
     ----------
-    r: Positions where the magnetic field is evaluated.
-    r_j: Position of the current element.
-    j: Current density vector (in A/m2).
-    spatial_dim: Name of the spatial dimension.
+    r : Positions where the magnetic field is evaluated.
+    r_j : Position of the current element.
+    j : Current density vector (in A/m2).
+    spatial_dim : Name of the spatial dimension.
 
     Returns
     -------
