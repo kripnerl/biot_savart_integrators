@@ -18,9 +18,9 @@ def _prepare_input_(integration_dim: Hashable, spatial_dim: Hashable,
     if dl is None:
         dl = r_c_copy.differentiate(integration_dim)
 
-    if (spatial_dim in j.coords) != (spatial_dim in dl):
+    if (hasattr(j, "coords") and spatial_dim in j.coords) != (spatial_dim in dl.coords):
         j_int = j * dl
-    elif (spatial_dim in j.coords) and (spatial_dim in dl):
+    elif (hasattr(j, "coords") and spatial_dim in j.coords) and (spatial_dim in dl.coords):
         _dl = (dl ** 2).sum(spatial_dim) ** 0.5
         j_int = j * _dl
     else:  # not in both

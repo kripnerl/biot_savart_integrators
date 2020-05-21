@@ -35,15 +35,33 @@ def test_circle_winding(setup):
 def test_circular_winding_line_element(setup):
     I, a, r0, r_c = setup
     dl = r_c.differentiate("phi")  # vector
+    dl_vec = dl.copy()
     j = dl * I  # vector with length element
     dl = (dl ** 2).sum("s") ** 0.5  # actual lengths
     j = j / dl  # normalization to line element length.
 
     Bz_analytic = mu_0 * I / (2 * a)
     B_line_el = line_elements.biot_savart_integral_B(r0, integration_dim="phi", spatial_dim="s", r_c=r_c, dl=dl, j=j)
+    B_line_el_2 = line_elements.biot_savart_integral_B(r0, integration_dim="phi", spatial_dim="s", r_c=r_c, j=I)
+    B_line_el_3 = line_elements.biot_savart_integral_B(r0, integration_dim="phi", spatial_dim="s", r_c=r_c, j=j)
+    B_line_el_4 = line_elements.biot_savart_integral_B(r0, integration_dim="phi", spatial_dim="s", r_c=r_c, dl=dl, j=I)
+    B_line_el_5 = line_elements.biot_savart_integral_B(r0, integration_dim="phi", spatial_dim="s",
+                                                       r_c=r_c, dl=dl_vec, j=j)
 
     np.testing.assert_allclose(B_line_el.sel(s=['x', 'y']), [0, 0])
     np.testing.assert_allclose(B_line_el.sel(s='z'), Bz_analytic)
+
+    np.testing.assert_allclose(B_line_el_2.sel(s=['x', 'y']), [0, 0])
+    np.testing.assert_allclose(B_line_el_2.sel(s='z'), Bz_analytic)
+
+    np.testing.assert_allclose(B_line_el_3.sel(s=['x', 'y']), [0, 0])
+    np.testing.assert_allclose(B_line_el_3.sel(s='z'), Bz_analytic)
+
+    np.testing.assert_allclose(B_line_el_4.sel(s=['x', 'y']), [0, 0])
+    np.testing.assert_allclose(B_line_el_4.sel(s='z'), Bz_analytic)
+
+    np.testing.assert_allclose(B_line_el_5.sel(s=['x', 'y']), [0, 0])
+    np.testing.assert_allclose(B_line_el_5.sel(s='z'), Bz_analytic)
 
 
 def test_circle_winding_profile(setup):
