@@ -12,8 +12,12 @@ from .integrand import biot_savart_integrand_A as bsintegrand_A
 
 def _prepare_input_(integration_dim: Hashable, spatial_dim: Hashable,
                     r_c: xr.DataArray, dl: xr.DataArray, j):
-
-    r_c_copy = r_c.copy().drop_vars(integration_dim, errors="ignore")
+    
+    # Compatibility with older version of xarrays
+    if hasattr(r_c, "drop_vars"):
+        r_c_copy = r_c.copy().drop_vars(integration_dim, errors="ignore")
+    else:
+        r_c_copy = r_c.copy().drop(integration_dim, errors="ignore")
 
     if dl is None:
         dl = r_c_copy.differentiate(integration_dim)

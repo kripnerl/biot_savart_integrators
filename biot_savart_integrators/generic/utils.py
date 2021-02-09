@@ -18,9 +18,16 @@ def cross(a, b, spatial_dim, output_dtype=None):
         
     if output_dtype is None:
         output_dtype = a.dtype
-    c = xr.apply_ufunc(np.cross, a, b,
-                       input_core_dims=[[spatial_dim], [spatial_dim]], 
-                       output_core_dims=[[spatial_dim]], 
-                       dask='parallelized', output_dtypes=[output_dtype]
-                      )
+    
+    try:
+        c = xr.apply_ufunc(np.cross, a, b,
+                        input_core_dims=[[spatial_dim], [spatial_dim]], 
+                        output_core_dims=[[spatial_dim]], 
+                        dask='parallelized', output_dtypes=[output_dtype]
+                          )
+    except: 
+        print(a)
+        print(b)
+        raise
+    
     return c
